@@ -1,14 +1,14 @@
-version: 2.1
+version: '2.1'
+orbs:
+  aws-cli: circleci/aws-cli@2.0
 jobs:
-  build:
-    docker:
-      - image: cimg/node:14.10.1 # the primary container, where your job's commands are run
-        auth:
-          username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+  aws-cli-example:
+    executor: aws-cli/default
     steps:
-      - checkout # check out the code in the project directory
-      - run:
-          name: "echo an env var that is part of our context"
-          command: |
-            echo $some_env
+      - checkout
+      - run: aws s3 ls
+workflows:
+  aws-cli:
+    jobs:
+      - aws-cli-example:
+          context: aws
