@@ -11,4 +11,5 @@ workflows:
     jobs:
       - aws-cli-example:
           context: aws
+      - list:
           run: aws s3 ls
