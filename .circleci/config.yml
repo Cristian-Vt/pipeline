@@ -7,8 +7,8 @@ jobs:
     steps:
       - checkout
       - run: aws s3 ls
-workflows:
-  aws-cli:
-    jobs:
-      - aws-cli-example:
-          context: aws
+# workflows:
+#   aws-cli:
+#     jobs:
+#       - aws-cli-example:
+#           context: aws
