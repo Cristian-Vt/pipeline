@@ -6,9 +6,9 @@ jobs:
     executor: aws-cli/default
     steps:
       - checkout
-      - run: aws s3 ls
 workflows:
   aws-cli:
     jobs:
       - aws-cli-example:
-          context: aws s3 ls
+          context: aws
+          run: aws s3 ls
