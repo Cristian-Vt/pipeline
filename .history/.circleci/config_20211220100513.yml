@@ -10,10 +10,7 @@ jobs:
       - aws-cli/install
       - run: aws s3 ls 
   main:
-    steps:
-      - checkout
-      - ts-node bin/s3Bucket.ts
-      - node bin/s3Bucket.js
+    
 
 workflows:
   aws-cli:
