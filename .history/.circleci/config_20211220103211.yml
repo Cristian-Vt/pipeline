@@ -34,8 +34,3 @@ jobs:
         comand: |
           npm install --save
       run: node bin/s3Bucket.ts
-
-workflow:
-  build_test:
-    jobs:
-      - run_tests
