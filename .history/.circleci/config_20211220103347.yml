@@ -30,10 +30,10 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install np dependencies
-          comand: |
-            npm install --save
-      - run: node bin/s3Bucket.ts
+        name: Install np dependencies
+        comand: |
+          npm install --save
+      run: node bin/s3Bucket.ts
 
 workflow:
   build_test:
