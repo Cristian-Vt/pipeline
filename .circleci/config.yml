@@ -1,35 +1,42 @@
 version: '2.1'
 
-executors:
-  my-executor:
-    docker:
-      - image: circleci/node:10
-orbs:
-  aws-cli: circleci/aws-cli@2.0
-  typescript: vidsy/typescript@1.2.1
+# executors:
+#   my-executor:
+#     docker:
+#       - image: circleci/node:10
+# orbs:
+#   aws-cli: circleci/aws-cli@2.0
+#   typescript: vidsy/typescript@1.2.1
 jobs:
-  aws-cli-setup:
-    working_directory: ~/repo
-    executor: aws-cli/default
+  build:
+    docker:
+      - image: cimg/node:14.10.1 
     steps:
       - checkout
-      - aws-cli/install
-      - run: aws s3 ls 
-  run_tests:
-    executor: my-executor
-    steps:
-      - checkout
-      - run:
-          name: Install np dependencies
-          command: |
-            npm install --save
-      - run: node bin/s3Bucket.ts
+      - run: echo ${CIRCLE_BRANCH}
+  # aws-cli-setup:
+  #   working_directory: ~/repo
+  #   executor: aws-cli/default
+  #   steps:
+  #     - checkout
+  #     - aws-cli/install
+  #     - run: aws s3 ls 
+  # run_tests:
+  #   executor: my-executor
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: Install np dependencies
+  #         command: |
+  #           npm install --save
+  #     - run: node bin/s3Bucket.ts
 
 workflows:
   aws-cli:
     jobs:
-      - aws-cli-setup:
-          context: aws
-      - run_tests
+      # - aws-cli-setup:
+      #     context: aws
+      # - run_tests
+      - build
 
 
