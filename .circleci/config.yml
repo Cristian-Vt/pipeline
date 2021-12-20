@@ -1,4 +1,9 @@
 version: '2.1'
+
+executors:
+  my-executor:
+    docker:
+      - image: circleci/node:10
 orbs:
   aws-cli: circleci/aws-cli@2.0
   typescript: vidsy/typescript@1.2.1
@@ -11,8 +16,7 @@ jobs:
       - aws-cli/install
       - run: aws s3 ls 
   run_tests:
-    docker:
-      - image: circleci/node:10
+    executor: my-executor
     steps:
       - checkout
       - run:
