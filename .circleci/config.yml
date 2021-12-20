@@ -29,13 +29,10 @@ jobs:
       - image: circleci/node:10
     steps:
       - checkout
-      - run:
-          name: Install np dependencies
-          comand: |
-            npm install --save
+      - run: npm install --save
       - run: node bin/s3Bucket.ts
 
-workflow:
+workflows:
   build_test:
     jobs:
       - run_tests
