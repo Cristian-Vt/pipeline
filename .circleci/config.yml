@@ -31,7 +31,10 @@ jobs:
           command: npm run test
       - run:
           name: install cdk
-          command: sudo npm install -g aws-cdk
+          command: npm install aws-cdk
+      - run:
+          name: bootstrap
+          command: cdk bootstrap
       - run:
           name: deploy
           command: cdk deploy
