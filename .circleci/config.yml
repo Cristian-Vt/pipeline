@@ -39,7 +39,7 @@ jobs:
       #     command: cdk deploy --require-approval=never --stack-name s3-cdk-stack
       - run:
           name: destroy
-          command: cdk destroy --require-approval=never --stack-name PipelineStack
+          command: cdk destroy --require-approval=never 
   aws-cli-setup:
     working_directory: ~/repo
     executor: aws-cli/default
