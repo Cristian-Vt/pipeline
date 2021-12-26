@@ -37,7 +37,7 @@ jobs:
       #     command: cdk bootstrap
       - run:
           name: deploy
-          command: yes | cdk deploy
+          command: cdk deploy
       - run:
           name: destroy
           command: yes | cdk destroy
