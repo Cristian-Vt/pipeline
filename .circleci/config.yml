@@ -9,7 +9,6 @@ orbs:
 #   typescript: vidsy/typescript@1.2.1
 jobs:
   build:
-    parallelism: 2
     executor: node-image
     steps:
       - checkout
@@ -40,7 +39,7 @@ jobs:
           command: cdk deploy
       - run:
           name: destroy
-          command: cdk destroy
+          command: npm run cdk_d
   aws-cli-setup:
     working_directory: ~/repo
     executor: aws-cli/default
