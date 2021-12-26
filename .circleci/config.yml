@@ -40,7 +40,7 @@ jobs:
       #     command: cdk deploy --require-approval=never
       - run:
           name: destroy
-          command: sudo cdk destroy --require-approval=never 
+          command: npx cdk destroy PipelineStack
   aws-cli-setup:
     working_directory: ~/repo
     executor: aws-cli/default
