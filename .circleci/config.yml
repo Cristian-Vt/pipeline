@@ -10,7 +10,7 @@ orbs:
 jobs:
   build:
     executor: node-image
-    parallelism: 16
+    parallelism: 4
     steps:
       - checkout
       - restore_cache:
