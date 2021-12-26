@@ -1,28 +1,64 @@
 version: '2.1'
 
 executors:
-  default:
+  node-image:
     docker:
-      - image: 'circleci/node:12.2.0'
-    environment:
-      AWS_REGION: 'eu-west-1'
+      - image: cimg/node:14.10.1 
+orbs:
+  aws-cli: circleci/aws-cli@2.0
+#   typescript: vidsy/typescript@1.2.1
 jobs:
   build:
-    executor: 'default'
+    executor: node-image
+    parallelism: 16
     steps:
-      - run:
-          name: 'assume_role'
-          command: |
-            sudo apt-get install awscli
-            echo "export AWS_ACCESS_KEY_ID=$(echo $temp_role | jq .Credentials.AccessKeyId | xargs)" >> $BASH_ENV
-            echo "export AWS_SECRET_ACCESS_KEY=$(echo $temp_role | jq .Credentials.SecretAccessKey | xargs)" >> $BASH_ENV
       - checkout
+      - restore_cache:
+          keys:
+            - node-deps-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
       - run:
-          name: 'build'
-          command: |
-            npm install
-            npm run build
-            npm install cdk
-            npm cdk deploy
+          name: install packages
+          command: npm ci
+      - run:
+          name: build
+          command: npm run build
+      - save_cache:
+          key: node-deps-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+      - run: 
+          name: Run tests
+          command: npm run test
+      - run:
+          name: install cdk
+          command: npm install -g aws-cdk
+      - run:
+          name: deploy
+          command: cdk deploy
+  aws-cli-setup:
+    working_directory: ~/repo
+    executor: aws-cli/default
+    steps:
+      - checkout
+      - aws-cli/install
+  # run_tests:
+  #   executor: my-executor
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: Install np dependencies
+  #         command: |
+  #           npm install --save
+  #     - run: node bin/s3Bucket.ts
+
+workflows:
+  build:
+    jobs:
+      - aws-cli-setup:
+          context: aws
+      - build:
+          requires:
+            - aws-cli-setup
+      # - run_tests
 
 
