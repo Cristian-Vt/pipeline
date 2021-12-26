@@ -32,12 +32,12 @@ jobs:
       # - run:
       #     name: install cdk
       #     command: sudo npm install -g aws-cdk
-      # - run:
-      #     name: bootstrap
-      #     command: cdk bootstrap
-      # - run:
-      #     name: deploy
-      #     command: npm run cdk_deploy
+      - run:
+          name: bootstrap
+          command: cdk bootstrap
+      - run:
+          name: deploy
+          command: npm run cdk_deploy
       - run:
           name: destroy
           command: npm run cdk_destroy
