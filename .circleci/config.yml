@@ -8,6 +8,12 @@ orbs:
   aws-cli: circleci/aws-cli@2.0
 #   typescript: vidsy/typescript@1.2.1
 jobs:
+  aws-cli-setup:
+    working_directory: ~/repo
+    executor: aws-cli/default
+    steps:
+      - checkout
+      - aws-cli/install
   build:
     executor: node-image
     parallelism: 16
@@ -30,15 +36,8 @@ jobs:
           name: Run tests
           command: npm run test
       - run:
-          name: install cdk
-          command: npm install aws-cdk
-  aws-cli-setup:
-    working_directory: ~/repo
-    executor: aws-cli/default
-    steps:
-      - checkout
-      - aws-cli/install
-      - run: cdk deploy
+          name: deploy
+          command: cdk deploy
   # run_tests:
   #   executor: my-executor
   #   steps:
@@ -52,11 +51,11 @@ jobs:
 workflows:
   build:
     jobs:
-      - build
       - aws-cli-setup:
-          requires:
-            - build
           context: aws
+      - build:
+          requires:
+              - aws-cli-setup
       # - run_tests
 
 
