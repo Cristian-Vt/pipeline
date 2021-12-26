@@ -52,7 +52,7 @@ workflows:
       - build
       - aws-cli-setup:
           requires:
-            build
+            - build
           context: aws
       # - run_tests
 
