@@ -32,9 +32,9 @@ jobs:
       - run:
           name: install cdk
           command: sudo npm install -g aws-cdk
-      - run:
-          name: bootstrap
-          command: cdk bootstrap
+      # - run:
+      #     name: bootstrap
+      #     command: cdk bootstrap
       - run:
           name: deploy
           command: cdk deploy --require-approval=never
