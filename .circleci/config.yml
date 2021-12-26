@@ -37,7 +37,7 @@ jobs:
       #     command: cdk bootstrap
       - run:
           name: deploy
-          command: cdk deploy --require-approval=never
+          command: cdk deploy
       - run:
           name: destroy
           command: cdk destroy
