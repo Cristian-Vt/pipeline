@@ -9,6 +9,7 @@ orbs:
 #   typescript: vidsy/typescript@1.2.1
 jobs:
   build:
+    parallelism: 2
     executor: node-image
     steps:
       - checkout
@@ -31,12 +32,12 @@ jobs:
       - run:
           name: install cdk
           command: sudo npm install -g aws-cdk
-      # - run:
-      #     name: bootstrap
-      #     command: cdk bootstrap
-      # - run:
-      #     name: deploy
-      #     command: cdk deploy --require-approval=never --stack-name s3-cdk-stack
+      - run:
+          name: bootstrap
+          command: cdk bootstrap
+      - run:
+          name: deploy
+          command: cdk deploy --require-approval=never
       - run:
           name: destroy
           command: cdk destroy --require-approval=never 
