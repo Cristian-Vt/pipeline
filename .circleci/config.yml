@@ -16,9 +16,9 @@ jobs:
       # - restore_cache:
       #     keys:
       #       - node-deps-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
-      # - run:
-      #     name: install packages
-      #     command: npm ci
+      - run:
+          name: install packages
+          command: npm ci
       # - run:
       #     name: build
       #     command: npm run build
