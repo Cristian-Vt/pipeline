@@ -37,10 +37,10 @@ jobs:
       #     command: cdk bootstrap
       - run:
           name: deploy
-          command: y | cdk deploy
+          command: yes | cdk deploy
       - run:
           name: destroy
-          command: y | cdk destroy
+          command: yes | cdk destroy
   aws-cli-setup:
     working_directory: ~/repo
     executor: aws-cli/default
