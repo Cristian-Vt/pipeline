@@ -36,10 +36,10 @@ jobs:
           command: cdk bootstrap
       - run:
           name: deploy
-          command: cdk deploy --require-approval=never stack-name s3-cdk-stack
+          command: cdk deploy --require-approval=never --stack-name s3-cdk-stack
       - run:
           name: destroy
-          command: cdk destroy --require-approval=never stack-name s3-cdk-stack
+          command: cdk destroy --require-approval=never --stack-name s3-cdk-stack
   aws-cli-setup:
     working_directory: ~/repo
     executor: aws-cli/default
