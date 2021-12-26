@@ -36,7 +36,7 @@ jobs:
           command: cdk bootstrap
       - run:
           name: deploy
-          command: cdk deploy
+          command: cdk deploy --stackName example
       - run:
           name: destroy
           command: cdk destroy
