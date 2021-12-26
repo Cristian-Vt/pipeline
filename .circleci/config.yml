@@ -38,6 +38,9 @@ jobs:
       - run:
           name: deploy
           command: cdk deploy
+      - run:
+          name: destroy
+          command: cdk destroy
   aws-cli-setup:
     working_directory: ~/repo
     executor: aws-cli/default
