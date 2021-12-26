@@ -29,6 +29,9 @@ jobs:
       - run: 
           name: Run tests
           command: npm run test
+      - run:
+          name: install cdk
+          command: npm install aws-cdk
   aws-cli-setup:
     working_directory: ~/repo
     executor: aws-cli/default
