@@ -8,7 +8,9 @@
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
-    "cdk": "cdk"
+    "cdk": "cdk",
+    "cdk_deploy": "cdk deploy",
+    "cdk_destroy": "cdk destroy --require-approval=never"
   },
   "devDependencies": {
     "@types/jest": "^26.0.10",
