@@ -40,7 +40,7 @@ jobs:
       #     command: cdk deploy --require-approval=never
       - run:
           name: destroy
-          command: cdk destroy --require-approval=never 
+          command: sudo cdk destroy --require-approval=never 
   aws-cli-setup:
     working_directory: ~/repo
     executor: aws-cli/default
