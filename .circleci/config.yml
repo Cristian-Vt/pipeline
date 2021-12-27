@@ -39,16 +39,17 @@ jobs:
       #     name: destroy
       #     command: npm run cdk_destroy
       - run:
-          name: destroy
-          command: echo $MY_ENV_VAR_3 | base64 --decode
+          name: "What was my custom environment variable?"
+          command: echo ${MY_ENV_VAR}
   aws-cli-setup:
     working_directory: ~/repo
     executor: aws-cli/default
     steps:
       - checkout
       - aws-cli/install
-    environment:
-      MY_ENV_VAR_3: my-value-3
+      - run:
+            name: "Setup custom environment variables"
+            command: echo 'export MY_ENV_VAR="FOO"' >> $BASH_ENV
   # run_tests:
   #   executor: my-executor
   #   steps:
