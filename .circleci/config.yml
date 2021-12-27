@@ -40,7 +40,7 @@ jobs:
       #     command: npm run cdk_destroy
       - run:
           name: destroy
-          command: echo $MY_ENV_VAR_3
+          command: echo $MY_ENV_VAR_3 | base64 --decode
   aws-cli-setup:
     working_directory: ~/repo
     executor: aws-cli/default
