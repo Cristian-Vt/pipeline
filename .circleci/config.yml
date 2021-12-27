@@ -40,7 +40,7 @@ jobs:
       #     command: npm run cdk_destroy
       - run:
           name: "What was my custom environment variable?"
-          command: echo ${MY_ENV_VAR}
+          command: cat $HOME/.circlerc
   aws-cli-setup:
     working_directory: ~/repo
     executor: aws-cli/default
@@ -49,10 +49,7 @@ jobs:
       - aws-cli/install
       - run:
             name: "Setup custom environment variables"
-            command: echo 'export MY_ENV_VAR="FOO"' >> $BASH_ENV
-      - run:
-          name: "What was my custom environment variable?"
-          command: echo ${MY_ENV_VAR}
+            command: export VARIABLE=\"HELLO WORLD\" >> $HOME/.circlerc
   # run_tests:
   #   executor: my-executor
   #   steps:
