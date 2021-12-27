@@ -40,13 +40,15 @@ jobs:
       #     command: npm run cdk_destroy
       - run:
           name: destroy
-          command: aws s3 ls
+          command: echo $MY_ENV_VAR_3
   aws-cli-setup:
     working_directory: ~/repo
     executor: aws-cli/default
     steps:
       - checkout
       - aws-cli/install
+    environment:
+      MY_ENV_VAR_3: my-value-3
   # run_tests:
   #   executor: my-executor
   #   steps:
