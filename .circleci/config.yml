@@ -13,46 +13,47 @@ jobs:
     executor: 
       node-image
     steps:
-      # - checkout
-      # - restore_cache:
-      #     keys:
-      #       - node-deps-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
-      # - run:
-      #     name: install packages
-      #     command: npm ci
-      # - run:
-      #     name: build
-      #     command: npm run build
-      # - save_cache:
-      #     key: node-deps-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
-      #     paths:
-      #       - node_modules
-      # - run: 
-      #     name: Run tests
-      #     command: npm run test
-      # - run:
-      #     name: bootstrap
-      #     command: npm run cdk_bootstrap
-      # - run:
-      #     name: deploy
-      #     command: npm run cdk_deploy
-      # - run:
-      #     name: destroy
-      #     command: npm run cdk_destroy
-      - env/attach-env
-      - run:
-          name: Use env var set in build job
-          command: echo $SOME_NAME
-  aws-cli-setup:
-    working_directory: ~/repo
-    executor: aws-cli/default
-    steps:
-      - checkout
       - aws-cli/install
-      - env/set-env-var:
-          var-name: SOME_NAME
-          var-value: some value
-      - env/persist-env
+      - checkout
+      - restore_cache:
+          keys:
+            - node-deps-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+      - run:
+          name: install packages
+          command: npm ci
+      - run:
+          name: build
+          command: npm run build
+      - save_cache:
+          key: node-deps-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+      - run: 
+          name: Run tests
+          command: npm run test
+      - run:
+          name: bootstrap
+          command: npm run cdk_bootstrap
+      - run:
+          name: deploy
+          command: npm run cdk_deploy
+      - run:
+          name: destroy
+          command: npm run cdk_destroy
+      # - env/attach-env
+      # - run:
+      #     name: Use env var set in build job
+      #     command: echo $SOME_NAME
+  # aws-cli-setup:
+  #   working_directory: ~/repo
+  #   executor: aws-cli/default
+  #   steps:
+  #     - checkout
+  #     - aws-cli/install
+  #     - env/set-env-var:
+  #         var-name: SOME_NAME
+  #         var-value: some value
+  #     - env/persist-env
   # run_tests:
   #   executor: my-executor
   #   steps:
@@ -66,11 +67,12 @@ jobs:
 workflows:
   build:
     jobs:
-      - aws-cli-setup:
-          context: aws
+      # - aws-cli-setup:
+      #     context: aws
       - build:
-          requires:
-            - aws-cli-setup
+          context: aws
+          # requires:
+          #   - aws-cli-setup
       # - run_tests
 
 
