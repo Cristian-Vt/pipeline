@@ -40,6 +40,9 @@ jobs:
       - run:
           name: destroy
           command: npm run cdk_destroy
+      - run:
+          name: test aws cli
+          command: aws s3 ls
       # - env/attach-env
       # - run:
       #     name: Use env var set in build job
