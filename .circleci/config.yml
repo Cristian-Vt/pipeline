@@ -30,7 +30,7 @@ jobs:
           command: npm run test
       - run:
           name: bootstrap
-          command: cdk bootstrap
+          command: npm run cdk_bootstrap
       - run:
           name: deploy
           command: npm run cdk_deploy

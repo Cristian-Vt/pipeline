@@ -10,7 +10,8 @@
     "test": "jest",
     "cdk": "cdk",
     "cdk_deploy": "cdk deploy",
-    "cdk_destroy": "yes | cdk destroy"
+    "cdk_destroy": "yes | cdk destroy",
+    "cdk_bootstrap": "cdk bootstrap"
   },
   "devDependencies": {
     "@types/jest": "^26.0.10",
