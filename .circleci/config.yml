@@ -32,17 +32,17 @@ jobs:
       - run: 
           name: Run tests
           command: npm run test
-      - run:
-          name: bootstrap
-          command: |
-            for i in $(aws cloudformation list-stacks --stack-status-filter CREATE_COMPLETE --query 'StackSummaries[*].StackId' --output text); do 
-              if [[ $i != *"$arn:aws:cloudformation:eu-west-1:748856397011:stack/CDKToolkit/"* ]]
-                  then  npm run cdk_bootstrap 
-              else
-                echo $i
-                  break
-              fi
-            done
+      # - run:
+      #     name: bootstrap
+      #     command: |
+      #       for i in $(aws cloudformation list-stacks --stack-status-filter CREATE_COMPLETE --query 'StackSummaries[*].StackId' --output text); do 
+      #         if [[ $i != *"$arn:aws:cloudformation:eu-west-1:748856397011:stack/CDKToolkit/"* ]]
+      #             then  npm run cdk_bootstrap 
+      #         else
+      #           echo $i
+      #             break
+      #         fi
+      #       done
       # - run:
       #     name: deploy
       #     command: npm run cdk_deploy
