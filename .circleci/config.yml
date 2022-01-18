@@ -56,6 +56,5 @@ workflows:
   build:
     jobs:
       - build:
-          context: enablement-tech-radar-ui-stack
-
+          context: aws
 
