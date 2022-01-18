@@ -11,82 +11,51 @@ jobs:
   build:
     docker:
         - image: 'cimg/base:stable'
-    # executor: 
-    #   node-image
     steps:
       - aws-cli/install
       - checkout
       - node/install:
           node-version: '16.13'
-      - restore_cache:
-          keys:
-            - node-deps-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
-      - run:
-          name: install packages
-          command: npm ci
-      - run:
-          name: build
-          command: npm run build
-      - save_cache:
-          key: node-deps-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
-          paths:
-            - node_modules
-      - run: 
-          name: Run tests
-          command: npm run test
-      - run:
-          name: bootstrap
-          command: |
-            for i in $(aws cloudformation list-stacks --stack-status-filter CREATE_COMPLETE --query 'StackSummaries[*].StackId' --output text); do 
-              if [[ $i != *"$arn:aws:cloudformation:eu-west-1:200422256149:stack/CDKToolkit/"* ]]
-                  then  npm run cdk_bootstrap 
-              else
-                echo $i
-                  break
-              fi
-            done
-      - run:
-          name: deploy
-          command: npm run cdk_deploy
+      # - restore_cache:
+      #     keys:
+      #       - node-deps-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+      # - run:
+      #     name: install packages
+      #     command: npm ci
+      # - run:
+      #     name: build
+      #     command: npm run build
+      # - save_cache:
+      #     key: node-deps-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+      #     paths:
+      #       - node_modules
+      # - run: 
+      #     name: Run tests
+      #     command: npm run test
+      # - run:
+      #     name: bootstrap
+      #     command: |
+      #       for i in $(aws cloudformation list-stacks --stack-status-filter CREATE_COMPLETE --query 'StackSummaries[*].StackId' --output text); do 
+      #         if [[ $i != *"$arn:aws:cloudformation:eu-west-1:200422256149:stack/CDKToolkit/"* ]]
+      #             then  npm run cdk_bootstrap 
+      #         else
+      #           echo $i
+      #             break
+      #         fi
+      #       done
+      # - run:
+      #     name: deploy
+      #     command: npm run cdk_deploy
       - run:
           name: destroy
-          command: npm run cdk_destroy
-      - run:
-          name: test aws cli
-          command: aws s3 ls
-      # - env/attach-env
-      # - run:
-      #     name: Use env var set in build job
-      #     command: echo $SOME_NAME
-  # aws-cli-setup:
-  #   working_directory: ~/repo
-  #   executor: aws-cli/default
-  #   steps:
-  #     - checkout
-  #     - aws-cli/install
-  #     - env/set-env-var:
-  #         var-name: SOME_NAME
-  #         var-value: some value
-  #     - env/persist-env
-  # run_tests:
-  #   executor: my-executor
-  #   steps:
-  #     - checkout
-  #     - run:
-  #         name: Install np dependencies
-  #         command: |
-  #           npm install --save
-  #     - run: node bin/s3Bucket.ts
+          command: |
+            aws s3 rm s3://locococooooooo-adadadadadasdafafaaf --force
+            npm run cdk_destroy
 
 workflows:
   build:
     jobs:
-      # - aws-cli-setup:
-      #     context: aws
       - build:
-          context: aws
-          # requires:
-          #   - aws-cli-setup
-      # - run_tests
+          context: enablement-tech-radar-ui-stack
 
 

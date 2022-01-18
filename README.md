@@ -1,16 +1,8 @@
-# Welcome to your CDK TypeScript project!
+# Enablement tech radar ui stack
 
-This is a blank project for TypeScript development with CDK.
+This project uses cdk typescript and deploys through circle ci the infrastructure and assets to aws '775445921260': "devx-prod" account
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+## ToDo:
 
-## Useful commands
-
- * `npm run build`   compile typescript to js
- * `npm run watch`   watch for changes and compile
- * `npm run test`    perform the jest unit tests
- * `cdk deploy`      deploy this stack to your default AWS account/region
- * `cdk diff`        compare deployed stack with current state
- * `cdk synth`       emits the synthesized CloudFormation template
-
- 
+- Use Cloudflare Servers Policy to deny direct access bucket endpoint 
+- Investigate if bucket can be made private with out using Cloudfront and Lambda Edge workaround
