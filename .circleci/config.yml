@@ -1,42 +1,16 @@
-version: '2.1'
-
-# executors:
-#   my-executor:
-#     docker:
-#       - image: circleci/node:10
-# orbs:
-#   aws-cli: circleci/aws-cli@2.0
-#   typescript: vidsy/typescript@1.2.1
+version: 2.1
+orbs:
+  slack: circleci/slack@4.9.3
 jobs:
-  build:
+  notify:
     docker:
-      - image: cimg/node:14.10.1 
+      - image: 'cimg/base:stable'
     steps:
-      - checkout
-      - run: echo ${CIRCLE_BRANCH}
-  # aws-cli-setup:
-  #   working_directory: ~/repo
-  #   executor: aws-cli/default
-  #   steps:
-  #     - checkout
-  #     - aws-cli/install
-  #     - run: aws s3 ls 
-  # run_tests:
-  #   executor: my-executor
-  #   steps:
-  #     - checkout
-  #     - run:
-  #         name: Install np dependencies
-  #         command: |
-  #           npm install --save
-  #     - run: node bin/s3Bucket.ts
-
+      - slack/notify:
+          event: pass
+          template: success_tagged_deploy_1
 workflows:
-  aws-cli:
+  send-notification:
     jobs:
-      # - aws-cli-setup:
-      #     context: aws
-      # - run_tests
-      - build
-
-
+      - notify:
+          context: slack
